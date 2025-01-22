@@ -1,50 +1,36 @@
-# React + TypeScript + Vite
+# 현대오토에버 CoE Frontend Engineer 과제테스트 (김수영)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## API 분석
 
-Currently, two official plugins are available:
+### 초기 로딩시
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 탭 별 카테고리 목록 조회
+  - 메서드: GET
+  - 요청 URL: api/faq/category
+  - 파라미터
+    - tab: string, 탭 이름('CONSULT' | 'USAGE')
+  - 응답: array, 카테고리 정보
+    - categoryID: number, 카테고리 id
+    - name: string, 카테고리 이름
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- 탭 별 FAQ 목록 조회
+  - 메서드: GET
+  - 요청 URL: api/faq
+  - 파라미터
+    - limit: number, 가져올 데이터의 갯수
+    - offset: number, 가져올 데이터 시작 인덱스
+    - tab: string, 탭 이름('CONSULT' | 'USAGE')
+    - faqCategoryID: string, 카테고리 이름
+  - 응답
+    - pageInfo: object, 응답 정보
+      - totalRecord: number, 해당 요청에 맞는 아이템의 갯수
+      - offset: number, 반환된 데이터의 시작 인덱스 정보
+      - limit: number, 반환된 데이터의 갯수
+      - prevOffset: number, 이전에 반환한 데이터의 시작 인덱스 정보
+      - nextOffset: number, 다음에 반환할 데이터의 시작 인덱스 정보 (더이상 더보기가 불가능하다면, offset === nextOffset이 됨)
+    - items: array, 각 FAQ 아이템들 정보
+      - id: number, 아이템 id
+      - categoryName: string, 카테고리 이름
+      - subCategoryName: string, 서브 카테고리 이름
+      - question: string, 질문 내용
+      - answer: html, 답변 내용에 대한 html
