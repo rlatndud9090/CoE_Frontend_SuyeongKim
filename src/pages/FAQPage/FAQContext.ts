@@ -3,13 +3,14 @@ import { Category, FAQItem } from '../../types/type';
 
 export type FAQContextType = {
   selectedCategoryIndex: number;
-  isFAQItemsLoading: boolean;
   hasNextPage: boolean;
+  isSearched: boolean;
+  isEmptySearchResult: boolean;
   categoryList?: Category[];
   faqItemList?: FAQItem[];
   setSelectedCategoryIndex: (index: number) => void;
-  handleCategoryTabClick: (index: number) => void;
   handleMoreButtonClick: () => void;
+  handleSearchButtonClick: (text: string) => void;
 };
 
 export const FAQContext = createContext<FAQContextType | undefined>(undefined);

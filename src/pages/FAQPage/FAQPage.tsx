@@ -11,41 +11,50 @@ import { MENU_ID_LIST, MENU_NAME_LIST } from '../../constants/constants';
 const FAQPage = () => {
   const [selectedMenuIndex, setSelectedMenuIndex] = useState<number>(0);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(0);
+  const [searchText, setSearchText] = useState<string>('');
 
-  const { categoryData, isCategoryLoading, isCategoryError } = useFetchCategory(selectedMenuIndex);
+  const { categoryData, isCategoryError } = useFetchCategory(selectedMenuIndex);
 
   const categoryList = categoryData?.categoryList;
   const categoryID = categoryList?.[selectedCategoryIndex - 1]?.categoryID;
 
-  const { faqItemsData, isFAQItemsLoading, isFAQItemsError, fetchNextPage, hasNextPage } =
-    useFetchFAQItems(selectedMenuIndex, categoryID);
+  const { faqItemsData, isFAQItemsError, fetchNextPage, hasNextPage } = useFetchFAQItems(
+    selectedMenuIndex,
+    categoryID,
+    searchText
+  );
 
   const faqItemList = faqItemsData?.pages.flatMap((page) => page.items);
+  const isSearched = searchText.length > 0;
+  const isEmptySearchResult = isSearched && faqItemsData?.pages[0].pageInfo.totalRecord === 0;
 
-  const handleMenuTabClick = (index: number) => {
+  const handleChangeSelectedMenuIndex = (index: number) => {
     setSelectedMenuIndex(index);
     setSelectedCategoryIndex(0);
-  };
-
-  const handleCategoryTabClick = (index: number) => {
-    setSelectedCategoryIndex(index);
   };
 
   const handleMoreButtonClick = () => {
     fetchNextPage();
   };
 
+  const handleSearchButtonClick = (text: string) => {
+    if (searchText !== text) {
+      setSearchText(text);
+    }
+  };
+
   if (isCategoryError || isFAQItemsError) return <div>Error!</div>;
 
   const providerValue: FAQContextType = {
     selectedCategoryIndex,
-    isFAQItemsLoading,
     hasNextPage,
+    isSearched,
+    isEmptySearchResult,
     categoryList,
     faqItemList,
     setSelectedCategoryIndex,
-    handleCategoryTabClick,
     handleMoreButtonClick,
+    handleSearchButtonClick,
   };
 
   return (
@@ -55,8 +64,7 @@ const FAQPage = () => {
         <p className={styles.description}>궁금하신 내용을 빠르게 찾아보세요.</p>
         <Tabs.Root
           selectedIndex={selectedMenuIndex}
-          setSelectedIndex={setSelectedMenuIndex}
-          onTabClick={handleMenuTabClick}
+          setSelectedIndex={handleChangeSelectedMenuIndex}
         >
           <Tabs.List className={styles.menuTabList}>
             {MENU_ID_LIST.map((menuID, index) => (
@@ -71,7 +79,7 @@ const FAQPage = () => {
           </Tabs.List>
           <Tabs.Content>
             <SearchContainer />
-            {!isCategoryLoading && <FAQContainer />}
+            <FAQContainer />
           </Tabs.Content>
         </Tabs.Root>
         <div>잡다한 것들</div>

@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react';
 export type TabsContextType = {
   selectedIndex: number;
   setSelectedIndex: (index: number) => void;
-  onTabClick: (tabIndex: number) => void;
 };
 
 export const TabsContext = createContext<TabsContextType | undefined>(undefined);

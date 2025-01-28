@@ -6,21 +6,16 @@ import styles from './FAQContainer.module.scss';
 const FAQContainer: React.FC = () => {
   const {
     selectedCategoryIndex,
-    isFAQItemsLoading,
     hasNextPage,
+    isEmptySearchResult,
     categoryList,
     faqItemList,
     setSelectedCategoryIndex,
-    handleCategoryTabClick,
     handleMoreButtonClick,
   } = useFAQContext();
 
   return (
-    <Tabs.Root
-      selectedIndex={selectedCategoryIndex}
-      setSelectedIndex={setSelectedCategoryIndex}
-      onTabClick={handleCategoryTabClick}
-    >
+    <Tabs.Root selectedIndex={selectedCategoryIndex} setSelectedIndex={setSelectedCategoryIndex}>
       <Tabs.List className={styles.categoryTabList}>
         <Tabs.Trigger
           className={styles.categoryTab}
@@ -40,7 +35,9 @@ const FAQContainer: React.FC = () => {
         ))}
       </Tabs.List>
       <Tabs.Content>
-        {!isFAQItemsLoading && (
+        {isEmptySearchResult ? (
+          <div>검색 결과가 없습니다.</div>
+        ) : (
           <>
             <div className="accordionContainer">
               {faqItemList?.map((faqItem) => (

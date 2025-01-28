@@ -1,13 +1,17 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 24px;
-  padding: 24px;
+  align-items: center;
+  margin-bottom: 48px;
 }
 
 .inputWrapper {
+  display: flex;
+  justify-content: center;
   position: relative;
   width: 480px;
+  margin-bottom: 24px;
 }
 
 .input {
@@ -37,6 +41,33 @@
   height: calc(100% - 2px);
 }
 
-.hide {
+.input:placeholder-shown + .clearButton {
   display: none;
+}
+
+.searchResultInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.searchResultHeader {
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.searchResultCount {
+  color: #70d7bf;
+}
+
+.clearSearchResultButton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding: 0 4px;
+  height: 30px;
+  background-color: white;
+  border: 0;
 }

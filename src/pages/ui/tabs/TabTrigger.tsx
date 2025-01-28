@@ -9,13 +9,12 @@ type TabTriggerProps = {
 };
 
 const TabTrigger: React.FC<TabTriggerProps> = ({ index, text, className, activeClassName }) => {
-  const { selectedIndex, setSelectedIndex, onTabClick } = useTabsContext();
+  const { selectedIndex, setSelectedIndex } = useTabsContext();
   const isActive = selectedIndex === index;
 
   const handleClick = () => {
     if (!isActive) {
       setSelectedIndex(index);
-      onTabClick(index);
     }
   };
 

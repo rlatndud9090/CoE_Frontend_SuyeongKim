@@ -8,16 +8,10 @@ type TabRootProps = {
   children: React.ReactElement<typeof TabList | typeof TabTrigger | typeof TabContent>[];
   selectedIndex: number;
   setSelectedIndex: (index: number) => void;
-  onTabClick?: (tabIndex: number) => void;
 };
 
-const TabRoot: React.FC<TabRootProps> = ({
-  children,
-  selectedIndex,
-  setSelectedIndex,
-  onTabClick = () => {},
-}) => {
-  const providerValue: TabsContextType = { selectedIndex, setSelectedIndex, onTabClick };
+const TabRoot: React.FC<TabRootProps> = ({ children, selectedIndex, setSelectedIndex }) => {
+  const providerValue: TabsContextType = { selectedIndex, setSelectedIndex };
 
   return (
     <TabsContext.Provider value={providerValue}>
