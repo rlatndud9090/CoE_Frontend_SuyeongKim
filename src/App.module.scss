@@ -1,6 +1,13 @@
 .container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+}
+
+.header {
+  position: sticky;
+  padding: 0 48px;
+  font-size: 30px;
+  height: 80px;
+  line-height: 80px;
+  top: 0;
+  z-index: 100;
+  font-weight: bold;
 }

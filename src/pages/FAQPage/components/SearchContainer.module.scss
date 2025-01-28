@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  padding: 24px;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 480px;
+}
+
+.input {
+  width: 100%;
+  height: 56px;
+  font-size: 18px;
+  font-weight: 400;
+  padding-left: 16px;
+  padding-right: 94px;
+}
+
+.clearButton {
+  position: absolute;
+  cursor: pointer;
+  top: 1px;
+  right: 55px;
+  width: 40px;
+  height: calc(100% - 2px);
+}
+
+.searchButton {
+  position: absolute;
+  cursor: pointer;
+  top: 1px;
+  right: 1px;
+  width: 54px;
+  height: calc(100% - 2px);
+}
+
+.hide {
+  display: none;
+}

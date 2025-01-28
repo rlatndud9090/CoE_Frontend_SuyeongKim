@@ -1,23 +1,26 @@
 import React from 'react';
 import { useTabsContext } from './TabsContext';
-import styles from './TabTrigger.module.scss';
 
-type TabTriggerProp = {
+type TabTriggerProps = {
   index: number;
   text: string;
+  className?: string;
+  activeClassName?: string;
 };
 
-const TabTrigger: React.FC<TabTriggerProp> = ({ index, text }) => {
+const TabTrigger: React.FC<TabTriggerProps> = ({ index, text, className, activeClassName }) => {
   const { selectedIndex, setSelectedIndex, onTabClick } = useTabsContext();
   const isActive = selectedIndex === index;
 
   const handleClick = () => {
-    setSelectedIndex(index);
-    onTabClick(index);
+    if (!isActive) {
+      setSelectedIndex(index);
+      onTabClick(index);
+    }
   };
 
   return (
-    <button className={isActive ? styles.active : styles.unActive} onClick={handleClick}>
+    <button className={`${className} ${isActive ? activeClassName : ''}`} onClick={handleClick}>
       {text && <span>{text}</span>}
     </button>
   );

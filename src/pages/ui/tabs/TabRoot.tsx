@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TabsContext, TabsContextType } from './TabsContext';
 import TabList from './TabList';
 import TabTrigger from './TabTrigger';
 import TabContent from './TabContent';
 
-type TabsProp = {
+type TabRootProps = {
   children: React.ReactElement<typeof TabList | typeof TabTrigger | typeof TabContent>[];
+  selectedIndex: number;
+  setSelectedIndex: (index: number) => void;
   onTabClick?: (tabIndex: number) => void;
 };
 
-type TabsType = React.FC<TabsProp> & {
-  List: typeof TabList;
-  Trigger: typeof TabTrigger;
-  Content: typeof TabContent;
-};
-
-const Tabs: TabsType = ({ children, onTabClick = () => {} }) => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
-
+const TabRoot: React.FC<TabRootProps> = ({
+  children,
+  selectedIndex,
+  setSelectedIndex,
+  onTabClick = () => {},
+}) => {
   const providerValue: TabsContextType = { selectedIndex, setSelectedIndex, onTabClick };
 
   return (
@@ -27,8 +26,4 @@ const Tabs: TabsType = ({ children, onTabClick = () => {} }) => {
   );
 };
 
-Tabs.List = TabList;
-Tabs.Trigger = TabTrigger;
-Tabs.Content = TabContent;
-
-export default Tabs;
+export default TabRoot;
