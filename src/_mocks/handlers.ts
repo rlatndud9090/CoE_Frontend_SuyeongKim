@@ -54,7 +54,7 @@ export const handlers = [
     const url = new URL(request.url);
 
     const searchParams = Object.fromEntries(url.searchParams);
-    const { limit, offset, tab, faqCategoryID } = searchParams;
+    const { limit, offset, tab, faqCategoryID, question } = searchParams;
 
     if (tab !== 'CONSULT' && tab !== 'USAGE') {
       throw new Error('bad params');
@@ -76,6 +76,17 @@ export const handlers = [
       } else {
         itemList = itemList.filter((item) => item.categoryName === categoryName);
       }
+    }
+
+    if (question) {
+      itemList = itemList.filter((item) => {
+        if (item.categoryName.includes(question)) return true;
+        if (item.subCategoryName.includes(question)) return true;
+        if (item.question.includes(question)) return true;
+        if (item.answer.includes(question)) return true;
+
+        return false;
+      });
     }
 
     return HttpResponse.json({
