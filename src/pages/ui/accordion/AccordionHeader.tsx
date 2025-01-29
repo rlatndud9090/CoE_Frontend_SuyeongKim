@@ -1,5 +1,6 @@
-import React from 'react';
 import { useAccordionContext } from './AccordionContext';
+import styles from './Accordion.module.scss';
+import { FaChevronDown } from 'react-icons/fa';
 
 type AccordionHeaderProp = {
   index: number;
@@ -9,7 +10,13 @@ type AccordionHeaderProp = {
 const AccordionHeader: React.FC<AccordionHeaderProp> = ({ index, children }) => {
   const { openIndex, toggleItem } = useAccordionContext();
   const isOpen = openIndex === index;
-  return <button></button>;
+
+  return (
+    <button className={styles.header} onClick={() => toggleItem(index)}>
+      {children}
+      <FaChevronDown className={`${styles.headerIcon} ${isOpen ? styles.headerIconOpen : ''}`} />
+    </button>
+  );
 };
 
 export default AccordionHeader;

@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react';
 import { Category, FAQItem } from '../../types/type';
 
 export type FAQContextType = {
+  selectedMenuIndex: number;
   selectedCategoryIndex: number;
   hasNextPage: boolean;
   isSearched: boolean;

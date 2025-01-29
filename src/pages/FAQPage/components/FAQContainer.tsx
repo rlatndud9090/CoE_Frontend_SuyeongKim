@@ -2,9 +2,12 @@ import React from 'react';
 import { useFAQContext } from '../FAQContext';
 import { Tabs } from '../../ui/tabs/Tabs';
 import styles from './FAQContainer.module.scss';
+import { Accordion } from '../../ui/accordion/Accordion';
+import parse from 'html-react-parser';
 
 const FAQContainer: React.FC = () => {
   const {
+    selectedMenuIndex,
     selectedCategoryIndex,
     hasNextPage,
     isEmptySearchResult,
@@ -13,6 +16,8 @@ const FAQContainer: React.FC = () => {
     setSelectedCategoryIndex,
     handleMoreButtonClick,
   } = useFAQContext();
+
+  const showCategoryName = selectedMenuIndex !== 0;
 
   return (
     <Tabs.Root selectedIndex={selectedCategoryIndex} setSelectedIndex={setSelectedCategoryIndex}>
@@ -39,15 +44,23 @@ const FAQContainer: React.FC = () => {
           <div>검색 결과가 없습니다.</div>
         ) : (
           <>
-            <div className="accordionContainer">
-              {faqItemList?.map((faqItem) => (
-                <div>
-                  <span>{faqItem.categoryName}</span>
-                  <span>{faqItem.subCategoryName}</span>
-                  <span>{faqItem.question}</span>
-                </div>
-              ))}
-            </div>
+            <Accordion.Root>
+              {faqItemList?.map((faqItem, index) => {
+                const { id, categoryName, subCategoryName, question, answer } = faqItem;
+                return (
+                  <Accordion.Item key={id}>
+                    <Accordion.Header index={index}>
+                      {showCategoryName && (
+                        <span className={styles.categoryName}>{categoryName}</span>
+                      )}
+                      <span className={styles.categoryName}>{subCategoryName}</span>
+                      <span className={styles.question}>{question}</span>
+                    </Accordion.Header>
+                    <Accordion.Content index={index}>{parse(answer)}</Accordion.Content>
+                  </Accordion.Item>
+                );
+              })}
+            </Accordion.Root>
             {hasNextPage && <button onClick={handleMoreButtonClick}>더보기</button>}
           </>
         )}

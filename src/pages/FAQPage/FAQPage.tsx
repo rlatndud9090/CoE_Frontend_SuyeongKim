@@ -38,14 +38,11 @@ const FAQPage = () => {
   };
 
   const handleSearchButtonClick = (text: string) => {
-    if (searchText !== text) {
-      setSearchText(text);
-    }
+    setSearchText(text);
   };
 
-  if (isCategoryError || isFAQItemsError) return <div>Error!</div>;
-
   const providerValue: FAQContextType = {
+    selectedMenuIndex,
     selectedCategoryIndex,
     hasNextPage,
     isSearched,
@@ -56,6 +53,8 @@ const FAQPage = () => {
     handleMoreButtonClick,
     handleSearchButtonClick,
   };
+
+  if (isCategoryError || isFAQItemsError) return <div>Error!</div>;
 
   return (
     <FAQContext.Provider value={providerValue}>

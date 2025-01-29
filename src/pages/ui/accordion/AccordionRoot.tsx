@@ -9,7 +9,7 @@ const AccordionRoot: React.FC<AccordionRootProps> = ({ children }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleItem = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index)); // 토글
+    setOpenIndex((prev) => (prev === index ? null : index));
   };
 
   const providerValue: AccordionContextType = { openIndex, toggleItem };
