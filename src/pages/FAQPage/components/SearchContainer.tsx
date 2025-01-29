@@ -21,8 +21,8 @@ const SearchContainer = () => {
     setInputValue('');
   };
 
-  const handleSearchButtonClick = (text: string) => {
-    const trimmedText = text.trim();
+  const handleSearchButtonClick = () => {
+    const trimmedText = inputValue.trim();
 
     if (trimmedText.length < 2) {
       alert('검색어를 2자 이상 입력해주세요.');
@@ -38,6 +38,12 @@ const SearchContainer = () => {
     setSearchText('');
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearchButtonClick();
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.inputWrapper}>
@@ -46,12 +52,13 @@ const SearchContainer = () => {
           type="text"
           value={inputValue}
           placeholder="찾으시는 내용을 입력해 주세요"
+          onKeyDown={handleKeyDown}
           onChange={handleInputValueChange}
         />
         <button className={styles.clearButton} onClick={handleClearButtonClick}>
           <AiOutlineClose className={styles.clearButtonIcon} />
         </button>
-        <button className={styles.searchButton} onClick={() => handleSearchButtonClick(inputValue)}>
+        <button className={styles.searchButton} onClick={handleSearchButtonClick}>
           <BiSearch className={styles.searchButtonIcon} />
         </button>
       </div>
