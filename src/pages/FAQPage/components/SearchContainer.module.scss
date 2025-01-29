@@ -30,6 +30,13 @@
   right: 55px;
   width: 40px;
   height: calc(100% - 2px);
+  border: none;
+  background: none;
+
+  .clearButtonIcon {
+    font-size: 20px;
+    color: #a2a3a4;
+  }
 }
 
 .searchButton {
@@ -39,6 +46,12 @@
   right: 1px;
   width: 54px;
   height: calc(100% - 2px);
+  border: none;
+  background: none;
+
+  .searchButtonIcon {
+    font-size: 30px;
+  }
 }
 
 .input:placeholder-shown + .clearButton {

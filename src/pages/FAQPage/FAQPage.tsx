@@ -7,6 +7,7 @@ import { FAQContext, FAQContextType } from './FAQContext';
 import FAQContainer from './components/FAQContainer';
 import SearchContainer from './components/SearchContainer';
 import { MENU_ID_LIST, MENU_NAME_LIST } from '../../constants/constants';
+import FAQFooter from './components/FAQFooter';
 
 const FAQPage = () => {
   const [selectedMenuIndex, setSelectedMenuIndex] = useState<number>(0);
@@ -81,7 +82,7 @@ const FAQPage = () => {
             <FAQContainer />
           </Tabs.Content>
         </Tabs.Root>
-        <div>잡다한 것들</div>
+        <FAQFooter />
       </div>
     </FAQContext.Provider>
   );

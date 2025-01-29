@@ -62,7 +62,11 @@ const FAQContainer: React.FC = () => {
                 );
               })}
             </Accordion.Root>
-            {hasNextPage && <button onClick={handleMoreButtonClick}>더보기</button>}
+            {hasNextPage && (
+              <button className={styles.moreButton} onClick={handleMoreButtonClick}>
+                + 더보기
+              </button>
+            )}
           </>
         )}
       </Tabs.Content>

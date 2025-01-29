@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import styles from './SearchContainer.module.scss';
 import { useFAQContext } from '../FAQContext';
+import { AiOutlineClose } from 'react-icons/ai';
+import { BiSearch } from 'react-icons/bi';
 
 const SearchContainer = () => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -35,10 +37,10 @@ const SearchContainer = () => {
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button className={styles.clearButton} onClick={handleClearButtonClick}>
-          X
+          <AiOutlineClose className={styles.clearButtonIcon} />
         </button>
         <button className={styles.searchButton} onClick={() => handleSearchButtonClick(inputValue)}>
-          검색
+          <BiSearch className={styles.searchButtonIcon} />
         </button>
       </div>
       {isSearched && (
