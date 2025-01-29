@@ -2,6 +2,10 @@
   display: flex;
   padding-bottom: 24px;
   border-bottom: 2px solid black;
+
+  @media (max-width: 1023px) {
+    flex-wrap: wrap;
+  }
 }
 
 .categoryTab {
@@ -15,6 +19,10 @@
   padding: 0 20px;
   background-color: white;
   color: black;
+
+  @media (max-width: 1023px) {
+    font-size: 16px;
+  }
 }
 
 .categoryTabActive {
