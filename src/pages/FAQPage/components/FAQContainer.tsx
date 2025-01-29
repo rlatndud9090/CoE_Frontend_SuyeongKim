@@ -18,6 +18,7 @@ const FAQContainer: React.FC = () => {
   } = useFAQContext();
 
   const showCategoryName = selectedMenuIndex !== 0;
+  const accordionKey = `${selectedMenuIndex}-${selectedCategoryIndex}`;
 
   return (
     <Tabs.Root selectedIndex={selectedCategoryIndex} setSelectedIndex={setSelectedCategoryIndex}>
@@ -44,7 +45,7 @@ const FAQContainer: React.FC = () => {
           <div>검색 결과가 없습니다.</div>
         ) : (
           <>
-            <Accordion.Root>
+            <Accordion.Root key={accordionKey}>
               {faqItemList?.map((faqItem, index) => {
                 const { id, categoryName, subCategoryName, question, answer } = faqItem;
                 return (
