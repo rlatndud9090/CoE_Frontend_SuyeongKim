@@ -10,6 +10,11 @@
   border: none;
   border-bottom: 1px solid #e6e8e9;
   background-color: white;
+
+  @media (max-width: 1023px) {
+    flex-wrap: wrap;
+    column-gap: 15px;
+  }
 }
 
 .headerIcon {

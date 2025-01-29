@@ -27,12 +27,28 @@
   width: 208px;
   padding: 0 24px;
   color: #697278;
+
+  @media (max-width: 1023px) {
+    display: flex;
+    align-items: center;
+    font-size: calc(1em - 4px);
+    line-height: 1.6;
+    margin: 0 0 4px;
+    padding: 0;
+    width: auto;
+  }
 }
 
 .question {
   flex: 1 1;
   text-align: left;
   padding-left: 20px;
+
+  @media (max-width: 1023px) {
+    margin: 0;
+    min-width: 100%;
+    padding: 0;
+  }
 }
 
 .moreButton {

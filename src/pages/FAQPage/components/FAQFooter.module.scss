@@ -8,6 +8,8 @@
 .inquiryInfo {
   display: flex;
   margin: 0 -16px;
+  justify-content: center;
+  align-items: center;
 
   a {
     flex: 1 1;
@@ -20,6 +22,15 @@
     height: 80px;
     padding: 0 25px;
     cursor: pointer;
+  }
+
+  @media (max-width: 1023px) {
+    flex-wrap: wrap;
+
+    a:last-child {
+      min-width: calc(100% - 32px);
+      margin-top: 24px;
+    }
   }
 }
 
@@ -51,6 +62,19 @@
       color: #37434c;
       font-size: 16px;
       margin-top: 8px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    flex-direction: column;
+
+    li {
+      display: flex;
+      padding: 0;
+    }
+
+    li:not(:first-child) {
+      margin-top: 24px;
     }
   }
 }
