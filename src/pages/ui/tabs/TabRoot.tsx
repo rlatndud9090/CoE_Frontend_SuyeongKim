@@ -11,10 +11,10 @@ type TabRootProps = {
 };
 
 const TabRoot: React.FC<TabRootProps> = ({ children, selectedIndex, setSelectedIndex }) => {
-  const providerValue: TabsContextType = { selectedIndex, setSelectedIndex };
+  const contextValue: TabsContextType = { selectedIndex, setSelectedIndex };
 
   return (
-    <TabsContext.Provider value={providerValue}>
+    <TabsContext.Provider value={contextValue}>
       <div>{children}</div>
     </TabsContext.Provider>
   );

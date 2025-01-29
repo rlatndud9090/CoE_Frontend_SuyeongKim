@@ -26,39 +26,30 @@ const FAQPage = () => {
   );
 
   const faqItemList = faqItemsData?.pages.flatMap((page) => page.items);
-  const isSearched = searchText.length > 0;
-  const isEmptySearchResult = isSearched && faqItemsData?.pages[0].pageInfo.totalRecord === 0;
+  const faqPageInfo = faqItemsData?.pages[0].pageInfo;
 
   const handleChangeSelectedMenuIndex = (index: number) => {
     setSelectedMenuIndex(index);
     setSelectedCategoryIndex(0);
   };
 
-  const handleMoreButtonClick = () => {
-    fetchNextPage();
-  };
-
-  const handleSearchButtonClick = (text: string) => {
-    setSearchText(text);
-  };
-
-  const providerValue: FAQContextType = {
+  const contextValue: FAQContextType = {
     selectedMenuIndex,
     selectedCategoryIndex,
+    searchText,
     hasNextPage,
-    isSearched,
-    isEmptySearchResult,
     categoryList,
     faqItemList,
+    faqPageInfo,
     setSelectedCategoryIndex,
-    handleMoreButtonClick,
-    handleSearchButtonClick,
+    setSearchText,
+    fetchNextPage,
   };
 
   if (isCategoryError || isFAQItemsError) return <div>Error!</div>;
 
   return (
-    <FAQContext.Provider value={providerValue}>
+    <FAQContext.Provider value={contextValue}>
       <div className={styles.container}>
         <h1 className={styles.header}>자주 묻는 질문</h1>
         <p className={styles.description}>궁금하신 내용을 빠르게 찾아보세요.</p>

@@ -9,16 +9,23 @@ const FAQContainer: React.FC = () => {
   const {
     selectedMenuIndex,
     selectedCategoryIndex,
+    searchText,
     hasNextPage,
-    isEmptySearchResult,
     categoryList,
     faqItemList,
+    faqPageInfo,
     setSelectedCategoryIndex,
-    handleMoreButtonClick,
+    fetchNextPage,
   } = useFAQContext();
 
   const showCategoryName = selectedMenuIndex !== 0;
   const accordionKey = `${selectedMenuIndex}-${selectedCategoryIndex}`;
+
+  const isEmptySearchResult = searchText.length > 0 && faqPageInfo?.totalRecord === 0;
+
+  const handleMoreButtonClick = () => {
+    fetchNextPage();
+  };
 
   return (
     <Tabs.Root selectedIndex={selectedCategoryIndex} setSelectedIndex={setSelectedCategoryIndex}>
@@ -42,7 +49,7 @@ const FAQContainer: React.FC = () => {
       </Tabs.List>
       <Tabs.Content>
         {isEmptySearchResult ? (
-          <div>검색 결과가 없습니다.</div>
+          <div className={styles.noSearchResult}>검색 결과가 없습니다.</div>
         ) : (
           <>
             <Accordion.Root key={accordionKey}>

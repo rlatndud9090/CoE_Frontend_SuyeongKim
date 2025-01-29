@@ -12,10 +12,10 @@ const AccordionRoot: React.FC<AccordionRootProps> = ({ children }) => {
     setOpenIndex((prev) => (prev === index ? null : index));
   };
 
-  const providerValue: AccordionContextType = { openIndex, toggleItem };
+  const contextValue: AccordionContextType = { openIndex, toggleItem };
 
   return (
-    <AccordionContext.Provider value={providerValue}>
+    <AccordionContext.Provider value={contextValue}>
       <div>{children}</div>
     </AccordionContext.Provider>
   );

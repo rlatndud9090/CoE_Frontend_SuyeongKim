@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import styles from './SearchContainer.module.scss';
 import { useFAQContext } from '../FAQContext';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -6,35 +6,47 @@ import { BiSearch } from 'react-icons/bi';
 
 const SearchContainer = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const { isSearched, faqItemList, handleSearchButtonClick } = useFAQContext();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { searchText, faqPageInfo, setSearchText } = useFAQContext();
+
+  const isSearchDone = searchText.length > 0;
+  const totalCount = faqPageInfo?.totalRecord ?? 0;
+
+  const handleInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedText = event.target.value.trimStart();
+
+    setInputValue(trimmedText);
+  };
 
   const handleClearButtonClick = () => {
     setInputValue('');
-    if (inputRef.current) {
-      inputRef.current.value = '';
+  };
+
+  const handleSearchButtonClick = (text: string) => {
+    const trimmedText = text.trim();
+
+    if (trimmedText.length < 2) {
+      alert('검색어를 2자 이상 입력해주세요.');
+      return;
     }
+
+    setInputValue(trimmedText);
+    setSearchText(trimmedText);
   };
 
   const handleClearSearchResultButtonClick = () => {
     setInputValue('');
-    if (inputRef.current) {
-      inputRef.current.value = '';
-    }
-    handleSearchButtonClick('');
+    setSearchText('');
   };
-
-  const resultCount = faqItemList?.length || 0;
 
   return (
     <div className={styles.container}>
       <div className={styles.inputWrapper}>
         <input
-          ref={inputRef}
           className={styles.input}
           type="text"
+          value={inputValue}
           placeholder="찾으시는 내용을 입력해 주세요"
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={handleInputValueChange}
         />
         <button className={styles.clearButton} onClick={handleClearButtonClick}>
           <AiOutlineClose className={styles.clearButtonIcon} />
@@ -43,10 +55,10 @@ const SearchContainer = () => {
           <BiSearch className={styles.searchButtonIcon} />
         </button>
       </div>
-      {isSearched && (
+      {isSearchDone && (
         <div className={styles.searchResultInfo}>
           <h2 className={styles.searchResultHeader}>
-            검색결과 총 <span className={styles.searchResultCount}>{resultCount}</span> 건
+            검색결과 총 <span className={styles.searchResultCount}>{totalCount}</span> 건
           </h2>
           <button
             className={styles.clearSearchResultButton}

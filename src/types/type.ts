@@ -27,13 +27,15 @@ export type FAQItem = {
   answer: string;
 };
 
+export type FAQPageInfo = {
+  totalRecord?: number;
+  offset: number;
+  limit: number;
+  prevOffset: number;
+  nextOffset: number;
+};
+
 export type GetItemsResponse = {
-  pageInfo: {
-    totalRecord?: number;
-    offset: number;
-    limit: number;
-    prevOffset: number;
-    nextOffset: number;
-  };
+  pageInfo: FAQPageInfo;
   items: FAQItem[];
 };

@@ -1,17 +1,17 @@
 import { createContext, useContext } from 'react';
-import { Category, FAQItem } from '../../types/type';
+import { Category, FAQItem, FAQPageInfo } from '../../types/type';
 
 export type FAQContextType = {
   selectedMenuIndex: number;
   selectedCategoryIndex: number;
+  searchText: string;
   hasNextPage: boolean;
-  isSearched: boolean;
-  isEmptySearchResult: boolean;
   categoryList?: Category[];
   faqItemList?: FAQItem[];
+  faqPageInfo?: FAQPageInfo;
   setSelectedCategoryIndex: (index: number) => void;
-  handleMoreButtonClick: () => void;
-  handleSearchButtonClick: (text: string) => void;
+  fetchNextPage: () => void;
+  setSearchText: (text: string) => void;
 };
 
 export const FAQContext = createContext<FAQContextType | undefined>(undefined);
