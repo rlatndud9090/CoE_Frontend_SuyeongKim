@@ -1,5 +1,15 @@
 # 현대오토에버 CoE Frontend Engineer 과제테스트 (김수영)
 
+## 실행 방법
+
+### 의존성 설치
+
+$ npm install
+
+### 개발 환경 실행
+
+$ npm run dev
+
 ## API 분석
 
 ### 초기 로딩시
